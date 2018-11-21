@@ -24,7 +24,15 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-
+// get current date if date string is empty
+app.get("/api/timestamp/:date_string?", (req, res) => {
+  const currentTime = new Date();
+  console.log(req.params.date_string);
+  res.json({
+    unix: currentTime.getTime() / 1000,
+    utc: currentTime.toString()
+  })
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {

@@ -24,22 +24,22 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-// get date string input
-app.get("/api/timestamp/:date_string?", (req, res) => {
-  const getDate = new Date(req.params.date_string);
-  console.log(req.params.date_string);
+// get current date
+app.get('/api/timestamp', (req, res) => {
   res.json({
-    unix: getDate.getTime() / 1000,
-    utc: getDate.toString()
-  })
+    unix: new Date().getTime(),
+    utc: new Date().toUTCString()
+  });
 });
 
-// get current date
-app.get('api/timestamp', (req, res) => {
+// get date string input
+app.get("/api/timestamp/:date_string?", (req, res) => {
+  const date = new Date(req.params.date_string);
+  console.log(req.params.date_string);
   res.json({
-    unix: new Date().getTime() / 1000,
-    utc: new Date().toString()
-  });
+    unix: date.getTime(),
+    utc: date.toUTCString()
+  })
 });
 
 // listen for requests :)

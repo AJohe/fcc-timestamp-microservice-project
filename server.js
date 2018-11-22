@@ -24,14 +24,22 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-// get current date if date string is empty
+// get date string input
 app.get("/api/timestamp/:date_string?", (req, res) => {
-  const currentTime = new Date();
+  const getDate = new Date(req.params.date_string);
   console.log(req.params.date_string);
   res.json({
-    unix: currentTime.getTime() / 1000,
-    utc: currentTime.toString()
+    unix: getDate.getTime() / 1000,
+    utc: getDate.toString()
   })
+});
+
+// get current date
+app.get('api/timestamp', (req, res) => {
+  res.json({
+    unix: new Date().getTime() / 1000,
+    utc: new Date().toString()
+  });
 });
 
 // listen for requests :)

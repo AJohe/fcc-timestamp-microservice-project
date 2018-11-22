@@ -34,12 +34,20 @@ app.get('/api/timestamp', (req, res) => {
 
 // get date string input
 app.get("/api/timestamp/:date_string?", (req, res) => {
-  const date = new Date(req.params.date_string);
+  let date = new Date(req.params.date_string);
   console.log(req.params.date_string);
+  if(isNaN(req.params.date_string)) {
   res.json({
     unix: date.getTime(),
     utc: date.toUTCString()
   })
+}else {
+  date = new Date(Number.parseInt(req.params.date_string));
+  res.json({
+    unix: date.getTime(),
+    utc: date.toUTCString()
+  })
+};
 });
 
 // listen for requests :)
